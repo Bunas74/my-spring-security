@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <title>Edit User</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    form {
+      width: 100%;
+      max-width: 300px;
+      border-collapse: collapse;
+    }
+    label {
+      display: block;
+      margin-top: 20px;
+    }
+    input[type=text], input[type=password] {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    input[type=submit], .blue-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      border: none;
+      cursor: pointer;
+    }
+    input[type=submit]:hover, .blue-button:hover {
+      background-color: #45a049;
+    }
+    .error-message {
+      color: red;
+    }
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    a {
+      color: blue;
+      text-decoration: none;
+    }
+    .blue-button {
+      background-color: #0000FF;
+    }
+    .blue-button:hover {
+      background-color: #0000A0;
+    }
+    input[type=checkbox] {
+      transform: scale(1.5);
+      margin-right: 10px;
+    }
+    .checkbox-button input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+  </style>
+  <script>
+    function checkRole(role) {
+      const checkboxes = document.getElementsByName('role');
+      checkboxes.forEach((item) => {
+        if (item !== role) item.checked = false;
+      })
+    }
+  </script>
+</head>
+<body>
+<form action="#" th:action="@{/admin/edit}" th:object="${editDTO}" method="post">
+  <label>ID: <input type="text" th:field="${editDTO.id}" readonly /></label>
+  <label>Username: <input type="text" th:field="*{username}"/></label>
+  <div class="error-message" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+  <label>Password: <input type="password" th:field="*{password}"/></label>
+  <div class="error-message" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+  <label>Role:
+    <input type="checkbox" th:field="*{role}" value="ROLE_USER" onclick="checkRole(this)"> USER
+    <input type="checkbox" th:field="*{role}" value="ROLE_ADMIN" onclick="checkRole(this)"> ADMIN
+  </label>
+  <div class="error-message" th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></div>
+  <br/>
+  <div class="button-container">
+    <input type="submit" value="Сохранить"/>
+    <a href="/people" class="blue-button">На главную</a>
+  </div>
+</form>
+</body>
+</html>

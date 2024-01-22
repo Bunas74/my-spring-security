@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .error-message {
+            color: red;
+        }
+        .logout-message {
+            color: blue;
+        }
+        form {
+            width: 100%;
+            max-width: 300px;
+            border-collapse: collapse;
+        }
+        label {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        input[type=submit] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+        .submit-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        a {
+            color: blue;
+            text-decoration: none;
+        }
+        .blue-button {
+            background-color: #0000FF;
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 4px 2px;
+        }
+        .blue-button:hover {
+            background-color: #0000A0;
+        }
+    </style>
+</head>
+<body>
+<form th:action="@{/process_login}" method="post">
+    <!--    Подключаем csrf с помощью thymeleaf. При этом надо, чтобы logout выполнялся в post запросе.-->
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    <div><label> User Name : <input type="text" name="username"/> </label></div>
+    <div><label> Password: <input type="password" name="password"/> </label></div>
+    <div class="submit-container">
+        <input type="submit" value="Sign In"/>
+        <a href="/auth/registration" class="blue-button">Register</a>
+    </div>
+    <br/>
+    <div th:if="${param.error}" class="error-message">
+        Invalid username or password.
+    </div>
+    <div th:if="${param.logout}" class="logout-message">
+        You have been logged out.
+    </div>
+</form>
+</body>
+</html>

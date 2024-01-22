@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Person Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        a {
+            color: blue;
+            text-decoration: none;
+        }
+        .blue-button {
+            background-color: #0000FF;
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 4px 2px;
+        }
+        .blue-button:hover {
+            background-color: #0000A0;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <tr><th>ID</th><td th:text="${person.id}"></td></tr>
+    <tr><th>Username</th><td th:text="${person.username}"></td></tr>
+    <tr><th>Password</th><td th:text="${person.password}"></td></tr>
+    <tr><th>Role</th><td th:text="${person.role}"></td></tr>
+    <tr><th>Created At</th><td th:text="${person.createdAt}"></td></tr>
+    <tr><th>Updated At</th><td th:text="${person.updatedAt}"></td></tr>
+    <tr><th>Created Who</th><td th:text="${person.createdWho}"></td></tr>
+</table>
+<a href="/people" class="blue-button">На главную</a>
+</body>
+</html>

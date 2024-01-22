@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Таблица пользователей</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        a {
+            color: blue;
+            text-decoration: none;
+        }
+        input[type=submit] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="person : ${people}">
+        <td th:text="${person.id}"></td>
+        <td th:text="${person.username}"></td>
+        <td>
+            <a th:attr="href=${role == 'ROLE_ADMIN'} ? '/admin/info/' + ${person.id} : '/user/info/' + ${person.id}">Информация</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<form th:action="@{/auth/logout}" method="post">
+    <input type="submit" value="Logout"/>
+</form>
+</body>
+</html>
